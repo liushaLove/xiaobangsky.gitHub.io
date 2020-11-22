@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>css动画-红心案例</title>
+        <style>
+            *{
+                box-sizing: border-box;
+            }
+            #heart{
+                display: inline-block;
+                position: relative;
+                margin: 200px;
+                transition: all 1.5s;
+            }
+            #heart:hover{
+                transform: scale(1.5);
+            }
+            #heart > .left{
+                background: brown;
+                height: 100px;
+                width: 100px;
+                position: absolute;
+                transform:  rotate(45deg)  translateX(31px);
+                bottom: 50px;
+                left: -50px;
+                border-radius: 50% 0 0 50%;
+            }
+            #heart > .right{
+                background: brown;
+                height: 100px;
+                width: 100px;
+                position: absolute;
+                transform: rotate(45deg) translateY(31px);
+                bottom: 50px;
+                right: -50px;
+                border-radius: 50% 50% 0 0;
+            }
+            #heart > .bottom{
+                background: brown;
+                height: 100px;
+                width: 100px;
+                transform: rotate(45deg);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="heart">
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="bottom"></div>
+        </div>
+    </body>
+</html>
