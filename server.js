@@ -23,7 +23,7 @@ var server = http.createServer(function(request, response){
 
   if(path === '/'){
     response.statusCode = 200
-    response.setHeader('Content-Type', 'text/html;charset=utf-8')
+    response.setHeader('Content-Type', 'text/html;charset=utf-8')s
     response.write(`<link rel="stylesheet" href="./style.css"><h1>你好</h1><br/><h2>你是一个小彩笔！</h2>`)
     response.end()
   } else if(path === '/style.css'){
