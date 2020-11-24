@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>canvas实例-画板</title>
+        <link rel="stylesheet" href="canvas.css">
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <script>
+            //通过id找到canvas
+            let canvas = document.getElementById("canvas");
+            //设置画布的宽度，获取的是文档的宽度
+            canvas.width = document.documentElement.clientWidth;
+            //设置画布的高度，获取的是文档的高度
+            canvas.height = document.documentElement.clientHeight;
+            //获取这个元素的context——图像稍后将在此被渲染
+            let ctx = canvas.getContext("2d");
+            //绘画的标志
+            let painting = false;
+            //设置图形的填充颜色为蓝色
+            ctx.fillStyle = "blue";
+            //设置图形轮廓的颜色为none
+            ctx.strokeStyle = "blue";
+            //线的宽度
+            ctx.lineWidth = 4;
+            //判断是否支持触屏
+            let isTouchDevice = "ontouchstart" in document.documentElement;
+            //存储移动位置的横纵坐标数据
+            let lastPosition = [];
+
+            //支持触屏
+            if(  isTouchDevice ) {
+                //触屏事件
+                canvas.ontouchstart = ( e ) => {
+                    //横坐标数据
+                    let x = e.touches[0].clientX;
+                    //纵坐标数据
+                    let y = e.touches[0].clientY;
+                    //存放到坐标中
+                    lastPosition = [x,y];
+                }
+                //移动事件
+                canvas.ontouchmove = ( e ) => {
+                    //横坐标数据
+                    let x = e.touches[0].clientX;
+                    //纵坐标数据
+                    let y = e.touches[0].clientY;
+                    //画线
+                    drawLine(lastPosition[0],lastPosition[1],x,y);
+                     //存放到坐标中
+                    lastPosition = [x,y];
+                }
+            } else {
+                //不支持触屏
+                //鼠标按下事件
+                canvas.onmousedown = ( e ) => {
+                    //绘画的标志设置为true
+                    painting = true;
+                    //存放到坐标中
+                    lastPosition = [e.clientX,e.clientY];
+                }
+                //鼠标移动事件
+                canvas.onmousemove = ( e ) => {
+                    //绘画的标志为true
+                    if( painting === true) {
+                        //画线
+                        drawLine(lastPosition[0],lastPosition[1],e.clientX,e.clientY);
+                        //存放到坐标中
+                        lastPosition = [e.clientX,e.clientY];
+                    }
+                }
+                //鼠标松开事件
+                canvas.onmouseup = ( ) => {
+                    //绘画的标志设置为false
+                    painting = false;
+                }
+            }
+
+            //画线函数
+            function drawLine (x1, y1, x2, y2) {
+                ctx.beginPath();
+                ctx.moveTo(x1,y1);
+                ctx.lineTo(x2,y2);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+        </script>
+    </body>
+</html>
